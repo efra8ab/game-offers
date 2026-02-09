@@ -1,0 +1,66 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game Offers</title>
+
+    <style>
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 0 16px;
+      }
+
+      h1 {
+        margin-bottom: 8px;
+      }
+
+      .search-bar {
+        display: flex;
+        gap: 8px;
+        margin: 16px 0;
+      }
+
+      input[type="text"] {
+        flex: 1;
+        padding: 8px;
+        font-size: 1rem;
+      }
+
+      button {
+        padding: 8px 16px;
+        font-size: 1rem;
+        cursor: pointer;
+      }
+
+      #status {
+        margin-bottom: 16px;
+        color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🎮 Game Offers</h1>
+    <p>Search Steam games and find the best deals.</p>
+
+    <div class="search-bar">
+      <input
+        id="query"
+        type="text"
+        placeholder="Try: dark souls, elden ring, doom"
+        autocomplete="off"
+      />
+      <button id="btnSearch">Search</button>
+    </div>
+
+    <p id="status">Type a game name and press Search.</p>
+
+    <div id="results"></div>
+
+    <script type="module" src="/ui/search.js"></script>
+  </body>
+</html>
