@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game Offers | Detail</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #10141d;
+        --panel: rgba(27, 40, 56, 0.88);
+        --panel-strong: rgba(27, 40, 56, 0.96);
+        --text: #e6e6e6;
+        --muted: #a7b4c2;
+        --accent: #66c76a;
+        --accent-strong: #7be081;
+        --steam-blue: #1b2838;
+        --shadow: 0 30px 60px rgba(8, 12, 20, 0.55);
+        --radius: 18px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Inter", system-ui, -apple-system, sans-serif;
+        color: var(--text);
+        background: radial-gradient(
+            circle at 10% 10%,
+            rgba(102, 199, 106, 0.25),
+            transparent 55%
+          ),
+          radial-gradient(
+            circle at 80% 20%,
+            rgba(43, 80, 120, 0.35),
+            transparent 45%
+          ),
+          linear-gradient(160deg, #0b0f16 0%, #111826 50%, #0b0f16 100%);
+        min-height: 100vh;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: url("data:image/svg+xml,%3Csvg width='160' height='160' viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%231a2232' fill-opacity='0.45'%3E%3Ccircle cx='8' cy='8' r='2'/%3E%3Ccircle cx='80' cy='80' r='2'/%3E%3Ccircle cx='152' cy='40' r='2'/%3E%3C/g%3E%3C/svg%3E")
+          repeat;
+        opacity: 0.35;
+        pointer-events: none;
+      }
+
+      .page {
+        position: relative;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 32px 20px 60px;
+      }
+
+      .site-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 28px;
+      }
+
+      .brand {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 1.4rem;
+        letter-spacing: 0.02em;
+        text-decoration: none;
+        color: var(--text);
+      }
+
+      .back-link {
+        color: var(--muted);
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      .back-link:hover {
+        color: var(--text);
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(260px, 1fr) minmax(320px, 1.2fr);
+        gap: 26px;
+        align-items: center;
+        background: var(--panel);
+        border-radius: var(--radius);
+        padding: 26px;
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(12px);
+      }
+
+      .hero-media {
+        position: relative;
+        border-radius: 16px;
+        overflow: hidden;
+        background: #0a0d14;
+      }
+
+      .hero-media img {
+        width: 100%;
+        display: block;
+        object-fit: cover;
+        min-height: 220px;
+      }
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--accent);
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+
+      h1 {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: clamp(2rem, 3vw, 2.8rem);
+        margin: 0 0 12px;
+      }
+
+      .summary {
+        color: var(--muted);
+        margin: 0 0 18px;
+        line-height: 1.6;
+      }
+
+      .price-row {
+        display: flex;
+        align-items: baseline;
+        gap: 16px;
+        margin-bottom: 18px;
+      }
+
+      .price {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--accent-strong);
+      }
+
+      .discount {
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--text);
+        background: rgba(102, 199, 106, 0.2);
+        padding: 4px 10px;
+        border-radius: 999px;
+      }
+
+      .meta-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+
+      .meta-item {
+        background: var(--panel-strong);
+        padding: 10px 12px;
+        border-radius: 12px;
+      }
+
+      .meta-item .label {
+        display: block;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+        margin-bottom: 6px;
+      }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 20px;
+      }
+
+      .chip {
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.08);
+        font-size: 0.85rem;
+        color: var(--text);
+      }
+
+      .deal-card {
+        background: rgba(12, 18, 28, 0.75);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 16px;
+        margin-bottom: 20px;
+      }
+
+      .deal-header {
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--muted);
+        margin-bottom: 12px;
+        font-weight: 600;
+      }
+
+      .deal-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+
+      .deal-item {
+        background: rgba(255, 255, 255, 0.04);
+        padding: 10px 12px;
+        border-radius: 12px;
+      }
+
+      .deal-item .label {
+        display: block;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+        margin-bottom: 6px;
+      }
+
+      .deal-value {
+        font-weight: 600;
+        color: var(--text);
+      }
+
+      .deal-status {
+        color: var(--muted);
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+      }
+
+      .deal-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 10px 18px;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        text-decoration: none;
+        font-weight: 600;
+        background: transparent;
+        cursor: pointer;
+      }
+
+      .btn.primary {
+        background: var(--accent);
+        color: #0c130e;
+      }
+
+      .btn.ghost {
+        background: transparent;
+        border-color: rgba(255, 255, 255, 0.2);
+        color: var(--text);
+      }
+
+      .btn.secondary {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.1);
+        color: var(--text);
+      }
+
+      .btn:hover {
+        transform: translateY(-1px);
+      }
+
+      .status {
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      @media (max-width: 900px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .site-header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="site-header">
+        <a class="brand" href="/index.html">Game Offers</a>
+        <a class="back-link" href="/index.html">Back to search</a>
+      </header>
+
+      <main class="content">
+        <section class="hero">
+          <div class="hero-media">
+            <img id="cover" alt="Game cover" />
+          </div>
+          <div class="hero-info">
+            <div class="tag">Steam highlight</div>
+            <h1 id="title">Loading...</h1>
+            <p id="summary" class="summary">
+              Pulling the latest details for this game.
+            </p>
+
+            <div class="price-row">
+              <div id="price" class="price">--</div>
+              <div id="discount" class="discount" hidden>--</div>
+            </div>
+
+            <div class="meta-grid">
+              <div class="meta-item">
+                <span class="label">Release</span>
+                <span id="release">--</span>
+              </div>
+              <div class="meta-item">
+                <span class="label">Developers</span>
+                <span id="developers">--</span>
+              </div>
+              <div class="meta-item">
+                <span class="label">Publishers</span>
+                <span id="publishers">--</span>
+              </div>
+              <div class="meta-item">
+                <span class="label">Platforms</span>
+                <span id="platforms">--</span>
+              </div>
+              <div class="meta-item">
+                <span class="label">Metacritic</span>
+                <span id="metacritic">--</span>
+              </div>
+            </div>
+
+            <div id="genres" class="chips"></div>
+
+            <div id="dealSection" class="deal-card">
+              <div class="deal-header">Deal tracker</div>
+              <div class="deal-grid">
+                <div class="deal-item">
+                  <span class="label">Sale price</span>
+                  <span id="dealPrice" class="deal-value">--</span>
+                </div>
+                <div class="deal-item">
+                  <span class="label">Regular price</span>
+                  <span id="dealRetail" class="deal-value">--</span>
+                </div>
+                <div class="deal-item">
+                  <span class="label">Savings</span>
+                  <span id="dealSavings" class="deal-value">--</span>
+                </div>
+                <div class="deal-item">
+                  <span class="label">Store</span>
+                  <span id="dealStore" class="deal-value">--</span>
+                </div>
+                <div class="deal-item">
+                  <span class="label">Lowest ever</span>
+                  <span id="dealLowest" class="deal-value">--</span>
+                </div>
+              </div>
+              <div id="dealStatus" class="deal-status">
+                Loading deal info...
+              </div>
+              <div class="deal-actions">
+                <a
+                  id="dealLink"
+                  class="btn ghost"
+                  href="#"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  View deal
+                </a>
+              </div>
+            </div>
+
+            <div class="actions">
+              <button id="btnWishlist" class="btn secondary" type="button">
+                Add to wishlist
+              </button>
+              <button id="btnOwned" class="btn secondary" type="button">
+                Add to owned
+              </button>
+              <button id="btnCompare" class="btn secondary" type="button">
+                Add to compare
+              </button>
+              <a id="steamLink" class="btn primary" href="#" target="_blank" rel="noopener">
+                Open on Steam
+              </a>
+              <a class="btn ghost" href="/index.html">Back to search</a>
+            </div>
+
+            <p id="status" class="status">Loading game details.</p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="/ui/detail.js"></script>
+  </body>
+</html>
