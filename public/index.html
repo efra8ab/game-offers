@@ -6,176 +6,84 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Game Offers</title>
-
-    <style>
-      body {
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-        max-width: 900px;
-        margin: 40px auto;
-        padding: 0 16px;
-      }
-
-      h1 {
-        margin-bottom: 8px;
-      }
-
-      .search-bar {
-        display: flex;
-        gap: 8px;
-        margin: 16px 0;
-      }
-
-      .filters {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin-bottom: 16px;
-        flex-wrap: wrap;
-      }
-
-      .filters label {
-        font-size: 0.9rem;
-        color: #444;
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-      }
-
-      .filters input[type="text"],
-      .filters select {
-        padding: 6px 8px;
-        font-size: 0.9rem;
-      }
-
-      input[type="text"] {
-        flex: 1;
-        padding: 8px;
-        font-size: 1rem;
-      }
-
-      button {
-        padding: 8px 16px;
-        font-size: 1rem;
-        cursor: pointer;
-      }
-
-      #status {
-        margin-bottom: 16px;
-        color: #555;
-      }
-
-      .list-section {
-        margin-top: 28px;
-        padding: 16px;
-        border: 1px solid #e3e3e3;
-        border-radius: 10px;
-        background: #fafafa;
-      }
-
-      .list-section h2 {
-        margin: 0 0 12px;
-        font-size: 1.1rem;
-      }
-
-      .list {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-      }
-
-      .list-item {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 10px;
-        padding: 8px 10px;
-        border-radius: 8px;
-        background: #fff;
-        border: 1px solid #eee;
-      }
-
-      .item-title {
-        font-weight: 600;
-        color: #222;
-        text-decoration: none;
-      }
-
-      .item-meta {
-        font-size: 0.85rem;
-        color: #666;
-      }
-
-      .small-btn {
-        padding: 6px 10px;
-        font-size: 0.85rem;
-        border-radius: 6px;
-        border: 1px solid #ccc;
-        background: #fff;
-        cursor: pointer;
-      }
-
-      .card-actions {
-        display: flex;
-        gap: 8px;
-        margin-top: 8px;
-      }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles/common.css" />
+    <link rel="stylesheet" href="/styles/index.css" />
   </head>
   <body>
-    <h1>🎮 Game Offers</h1>
-    <p>Search Steam games and find the best deals.</p>
-    <p><a href="/deals.html">View top deals →</a> · <a href="/compare.html">Compare games →</a></p>
+    <div class="page">
+      <header class="site-header">
+        <a class="brand" href="/index.html">Game Offers</a>
+        <nav class="nav-links">
+          <a href="/index.html">Search</a>
+          <a href="/deals.html">Deals</a>
+          <a href="/compare.html">Compare</a>
+        </nav>
+      </header>
 
-    <div class="search-bar">
-      <input
-        id="query"
-        type="text"
-        placeholder="Try: dark souls, elden ring, doom"
-        autocomplete="off"
-      />
-      <button id="btnSearch">Search</button>
+      <section class="hero">
+        <h1>Search Steam Deals</h1>
+        <p>Find Steam games, compare sale prices, and track your wishlist.</p>
+
+        <div class="search-bar">
+          <input
+            id="query"
+            type="text"
+            placeholder="Try: dark souls, elden ring, doom"
+            autocomplete="off"
+          />
+          <button id="btnSearch" class="btn primary" type="button">
+            Search
+          </button>
+        </div>
+
+        <div class="filters">
+          <label>
+            Filter results
+            <input id="filterText" type="text" placeholder="Type to filter" />
+          </label>
+          <label>
+            Sort by
+            <select id="sortBy">
+              <option value="relevance">Relevance</option>
+              <option value="name-asc">Name (A–Z)</option>
+              <option value="name-desc">Name (Z–A)</option>
+              <option value="price-asc">Price (low → high)</option>
+              <option value="price-desc">Price (high → low)</option>
+              <option value="discount-desc">Discount (high → low)</option>
+            </select>
+          </label>
+          <label>
+            <input id="filterDeals" type="checkbox" />
+            Only show games with deals
+          </label>
+        </div>
+      </section>
+
+      <p id="status">Type a game name and press Search.</p>
+
+      <section id="results" class="results"></section>
+
+      <section class="list-section">
+        <h2>Wishlist</h2>
+        <div id="wishlist" class="list"></div>
+      </section>
+
+      <section class="list-section">
+        <h2>Owned</h2>
+        <div id="owned" class="list"></div>
+      </section>
+
+      <section class="list-section">
+        <h2>Compare</h2>
+        <div id="compare" class="list"></div>
+      </section>
     </div>
-
-    <p id="status">Type a game name and press Search.</p>
-
-    <div class="filters">
-      <label>
-        Filter results
-        <input id="filterText" type="text" placeholder="Type to filter" />
-      </label>
-      <label>
-        Sort by
-        <select id="sortBy">
-          <option value="relevance">Relevance</option>
-          <option value="name-asc">Name (A–Z)</option>
-          <option value="name-desc">Name (Z–A)</option>
-          <option value="price-asc">Price (low → high)</option>
-          <option value="price-desc">Price (high → low)</option>
-          <option value="discount-desc">Discount (high → low)</option>
-        </select>
-      </label>
-      <label>
-        <input id="filterDeals" type="checkbox" />
-        Only show games with deals
-      </label>
-    </div>
-
-    <div id="results"></div>
-
-    <section class="list-section">
-      <h2>Wishlist</h2>
-      <div id="wishlist" class="list"></div>
-    </section>
-
-    <section class="list-section">
-      <h2>Owned</h2>
-      <div id="owned" class="list"></div>
-    </section>
-
-    <section class="list-section">
-      <h2>Compare</h2>
-      <div id="compare" class="list"></div>
-    </section>
 
     <script type="module" src="/ui/search.js"></script>
   </body>

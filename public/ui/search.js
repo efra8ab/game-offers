@@ -55,34 +55,28 @@ function renderResults(results) {
 
   for (const game of results) {
     const card = document.createElement("div");
-    card.style.display = "flex";
-    card.style.gap = "12px";
-    card.style.alignItems = "center";
-    card.style.padding = "10px";
-    card.style.border = "1px solid #ddd";
-    card.style.borderRadius = "8px";
-    card.style.marginBottom = "10px";
+    card.className = "result-card";
 
     const img = document.createElement("img");
+    img.className = "result-media";
     img.src = game.tiny_image || "";
     img.alt = game.name || "Game image";
-    img.width = 120;
     img.loading = "lazy";
 
     const info = document.createElement("div");
+    info.className = "result-body";
 
     const title = document.createElement("div");
+    title.className = "result-title";
     title.textContent = game.name || "(no title)";
-    title.style.fontWeight = "600";
 
     const link = document.createElement("a");
+    link.className = "result-link";
     link.href = `/game.html?appid=${game.appid}`;
     link.textContent = "View details →";
 
     const priceRow = document.createElement("div");
-    priceRow.style.marginTop = "6px";
-    priceRow.style.fontSize = "0.9rem";
-    priceRow.style.color = "#333";
+    priceRow.className = "result-meta";
 
     const sale = formatUsd(game.deal?.salePrice);
     const retail = formatUsd(game.deal?.retailPrice);
@@ -101,22 +95,22 @@ function renderResults(results) {
     }
 
     const actions = document.createElement("div");
-    actions.className = "card-actions";
+    actions.className = "result-actions";
 
     const wishlistBtn = document.createElement("button");
-    wishlistBtn.className = "small-btn";
+    wishlistBtn.className = "btn small";
     wishlistBtn.textContent = hasItem("wishlist", game.appid)
       ? "Remove wishlist"
       : "Add to wishlist";
 
     const ownedBtn = document.createElement("button");
-    ownedBtn.className = "small-btn";
+    ownedBtn.className = "btn small";
     ownedBtn.textContent = hasItem("owned", game.appid)
       ? "Remove owned"
       : "Add to owned";
 
     const compareBtn = document.createElement("button");
-    compareBtn.className = "small-btn";
+    compareBtn.className = "btn small";
     compareBtn.textContent = hasItem("compare", game.appid)
       ? "Remove compare"
       : "Add to compare";
@@ -259,7 +253,7 @@ function renderList(container, items, label) {
     left.appendChild(meta);
 
     const removeBtn = document.createElement("button");
-    removeBtn.className = "small-btn";
+    removeBtn.className = "btn small";
     removeBtn.textContent = "Remove";
     removeBtn.addEventListener("click", () => {
       removeItem(label, item.appid);
